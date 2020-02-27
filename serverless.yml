@@ -1,12 +1,16 @@
 service: musify-server
 
 plugins:
+  - serverless-dotenv-plugin
   - serverless-domain-manager
 
 provider:
   name: aws
   runtime: nodejs12.x
   memorySize: 128
+  environment:
+    spotifyClientId: ${env:SPOTIFY_CLIENT_ID}
+    spotifyClientSecret: ${env:SPOTIFY_CLIENT_SECRET}
   apiGateway:
     minimumCompressionSize: 1024
 
@@ -16,10 +20,6 @@ custom:
     basePath: ''
     stage: ${self:provider.stage}
     createRoute53Record: false
-
-environment:
-  spotifyClientId: ${env:SPOTIFY_CLIENT_ID}
-  spotifyClientSecret: ${env:SPOTIFY_CLIENT_SECRET}
 
 functions:
   getPlaylist:
