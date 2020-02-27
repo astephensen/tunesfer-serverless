@@ -1,4 +1,4 @@
-name: CI
+name: Build
 
 on:
   push:
@@ -12,10 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install Dependencies
-      uses: actions/npm@master
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
       with:
-        args: install
+        node-version: 12
+
+    - name: Install Dependencies
+      run: npm install
 
     - name: Deploy
       uses: serverless/github-action@master
